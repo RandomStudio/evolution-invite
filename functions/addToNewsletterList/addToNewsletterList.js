@@ -48,7 +48,7 @@ module.exports.handler = async (event, context, callback) => {
 		console.log(errorMessage);
 		callback(errorMessage);
 	}
-
+	console.log(event.queryStringParameters)
 	const headers = {
 		Authorization: `Basic ${process.env.MAILCHIMP_API_KEY}`,
 	}
