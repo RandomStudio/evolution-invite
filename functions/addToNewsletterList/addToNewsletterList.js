@@ -1,9 +1,45 @@
 /* eslint-disable no-console */
-const request = require('request');
+const https = require('https');
 
-const mailChimpAPI = process.env.MAILCHIMP_API_KEY;
+async function post(url, data, headers) {
+	const options = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Content-Length': data.length,
+		},
+		timeout: 1000, // in ms
+	}
 
-module.exports.handler = (event, context, callback) => {
+	return new Promise((resolve, reject) => {
+		const req = https.request(url, options, (res) => {
+			if (res.statusCode < 200 || res.statusCode > 299) {
+				return reject(new Error(`HTTP status code ${res.statusCode}`))
+			}
+
+			const body = []
+			res.on('data', (chunk) => body.push(chunk))
+			res.on('end', () => {
+				const resString = Buffer.concat(body).toString()
+				resolve(resString)
+			})
+		})
+
+		req.on('error', (err) => {
+			reject(err)
+		})
+
+		req.on('timeout', () => {
+			req.destroy()
+			reject(new Error('Request time out'))
+		})
+
+		req.write(data)
+		req.end()
+	})
+}
+
+module.exports.handler = async (event, context, callback) => {
 	const { email } = event.queryStringParameters;
 	let errorMessage = null;
 
@@ -13,53 +49,47 @@ module.exports.handler = (event, context, callback) => {
 		callback(errorMessage);
 	}
 
+	const headers = {
+		Authorization: `Basic ${process.env.MAILCHIMP_API_KEY}`,
+	}
+
 	const data = {
 		email_address: email,
 		status: 'subscribed',
 		merge_fields: {},
 	};
 
-	const subscriber = JSON.stringify(data);
-	console.log('Sending data to mailchimp', subscriber);
+	const body = JSON.stringify(data);
+	console.log('Sending data to mailchimp', body);
 
-	request(
-		{
-			method: 'POST',
-			url: 'https://us4.api.mailchimp.com/3.0/lists/406185/members',
-			body: subscriber,
+	try {
+		const response = await post('https://us4.api.mailchimp.com/3.0/lists/406185/members', body, headers);
+
+		const bodyObj = JSON.parse(body);
+
+		console.log(`Mailchimp body: ${JSON.stringify(bodyObj)}`);
+		console.log(`Status Code: ${response.statusCode}`);
+
+		if (response.statusCode > 299) {
+			console.log('Error from mailchimp', bodyObj.detail);
+			callback(bodyObj.detail, null);
+			return;
+		}
+
+		console.log('Added to list in Mailchimp subscriber list');
+
+		callback(null, {
+			statusCode: 201,
 			headers: {
-				Authorization: `Basic ${mailChimpAPI}`,
 				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': 'true',
 			},
-		},
-		(error, response, body) => {
-			if (error) {
-				callback(error, null);
-			}
-
-			const bodyObj = JSON.parse(body);
-
-			console.log(`Mailchimp body: ${JSON.stringify(bodyObj)}`);
-			console.log(`Status Code: ${response.statusCode}`);
-
-			if (response.statusCode < 300) {
-				console.log('Added to list in Mailchimp subscriber list');
-
-				callback(null, {
-					statusCode: 201,
-					headers: {
-						'Content-Type': 'application/json',
-						'Access-Control-Allow-Origin': '*',
-						'Access-Control-Allow-Credentials': 'true',
-					},
-					body: JSON.stringify({
-						status: 'saved email',
-					}),
-				});
-			} else {
-				console.log('Error from mailchimp', bodyObj.detail);
-				callback(bodyObj.detail, null);
-			}
-		},
-	);
+			body: JSON.stringify({
+				status: 'saved email',
+			}),
+		});
+	} catch (error) {
+		callback(error, null);
+	}
 };
