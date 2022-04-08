@@ -1,0 +1,94 @@
+@font-face {
+	font-family: 'Random Regular';
+	src: url('Random-Regular.woff2') format('woff2');
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	font-family: Random Regular;
+	font-size: 36px;
+	font-weight: 400;
+	line-height: 1.12;
+	letter-spacing: 0.03em;
+}
+
+img {
+	width: 100%;
+	object-fit: cover;
+	order: 2;
+}
+
+div {
+	background-color: black;
+	color: white;
+	padding: 1em;
+	order: 1;
+}
+
+form {
+	background-color: rgba(233, 100, 21, 1);
+	color: black;
+	display: grid;
+	grid-template-columns: min-content auto;
+	column-gap: 1.5em;
+	padding: 1.5em 1em;
+	row-gap: 1.3em;
+	order: 3;
+}
+
+input,
+button {
+	color: inherit;
+	font-size: inherit;
+	font: inherit;
+	line-height: inherit;
+	font-weight: inherit;
+	appearance: none;
+}
+
+button {
+	background: rgba(255, 241, 227, 1);
+	order: 4;
+}
+
+label {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+input {
+	background-color: transparent;
+	border-color: transparent;
+	border-bottom: 1px solid black;
+	color: black;
+	width: 100%;
+}
+
+input::placeholder {
+	color: black;
+	opacity: 1;
+}
+
+@media (min-width: 640px) {
+	body {
+		display: grid;
+		grid-template-columns: 50vw 50vw;
+		grid-template-rows: 2fr 1fr 1fr;
+		height: 100vh;
+		overflow: hidden;
+		line-height: 1.25;
+	}
+
+	img {
+		grid-column: 1 / 2;
+		grid-row: 1 / 4;
+	}
+
+	div {
+		padding-left: 1.5em;
+	}
+}
