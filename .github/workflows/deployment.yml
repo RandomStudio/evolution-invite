@@ -2,7 +2,7 @@ name: Deploy site to Production
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     name: Build application
