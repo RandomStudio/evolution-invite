@@ -1,5 +1,9 @@
 
+const formEl = document.getElementById('form');
 const submitEl = document.querySelector('.submit');
+
+const nameEl = document.getElementById('name')
+const emailEl = document.getElementById('email')
 
 let hasError = false;
 
@@ -10,12 +14,14 @@ const setErrorMessage = message => {
 	hasError = true;
 }
 
-const resetError = () => {
-	if (!hasError) {
+const handleChange = () => {
+	if (!emailEl.value.includes('@') || nameEl.value.length < 3) {
+		submitEl.classList.add('is-disabled')
 		return;
 	}
-	submitEl.classList.remove('has-error')
+
 	submitEl.classList.remove('is-disabled')
+	submitEl.classList.remove('has-error')
 	submitEl.innerText = 'Submit RSVP'
 }
 
@@ -46,3 +52,8 @@ const handleSubmit = async event => {
 	return false;
 };
 
+formEl.addEventListener('submit', handleSubmit)
+submitEl.addEventListener('click', handleSubmit)
+
+nameEl.addEventListener('change', handleChange)
+emailEl.addEventListener('change', handleChange)

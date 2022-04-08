@@ -20,11 +20,11 @@
 			Friday 22 April 2022<br />
 			18:00 - 00:00
 		</div>
-		<form id="form" onsubmit="handleSubmit(event)">
-			<label>Name</label><input id="name" placeholder="Your name" onchange="resetError()" type="text" />
-			<label>Email</label><input id="email" placeholder="your@email.nl" onchange="resetError()" type="email" />
+		<form id="form">
+			<label>Name</label><input id="name" placeholder="Your name" type="text" />
+			<label>Email</label><input id="email" placeholder="your@email.nl" type="email" />
 		</form>
-		<button class="submit" onclick="handleSubmit(event)" type="submit" form="form" value="Submit">Submit RSVP</button>
+		<button class="submit is-disabled" type="submit" form="form" value="Submit">Submit RSVP</button>
 
 		<script type="text/javascript" src="submit.js"></script>
 		<script type="text/javascript" src="image.js"></script>

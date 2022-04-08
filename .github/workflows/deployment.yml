@@ -1,0 +1,24 @@
+name: Deploy site to Production
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Build application
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16"
+      - uses: actions/checkout@v3
+      - name: Deploy to server
+        uses: AEnterprise/rsync-deploy@1.0.1
+        env:
+          DEPLOY_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+          ARGS: "-e -c -r --delete"
+          SERVER_PORT: 22
+          FOLDER: "./"
+          SERVER_IP: "195.114.30.143"
+          USERNAME: ubuntu
+          SERVER_DESTINATION: "/var/www/evolution.random.studio/"

@@ -75,11 +75,13 @@ button {
 button {
 	background: rgba(255, 241, 227, 1);
 	order: 4;
-	min-height: 4rem
+	min-height: 4rem;
+	color: black;
 }
 
 button.is-disabled {
 	pointer-events: none;
+	color: rgba(0, 0, 0, 0.4);
 }
 
 button.has-error {
