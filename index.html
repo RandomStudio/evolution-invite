@@ -1,38 +1,89 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Random Studio Evolution Party</title>
-		<link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<script type="text/javascript">
-			document.documentElement.style.opacity = 0;
-			document.documentElement.style.backgroundColor = 'black';
-		</script>
-		<div class="image">
-			<img alt="An image of rocks" srcset="/images/480_image.png 480w, /images/960_image.png 960w, /images/1024_image.png 1024w, /images/1440_image.png 1440w, /images/1600_image.png 1600w, /images/1920_image.png 1920w, /images/image.png 2160w, /images/image.png 2700w" src="/images/image.png" class="is-active" />
-			<img alt="Another image of rocks" srcset="/images/480_image2.png 480w, /images/960_image2.png 960w, /images/1024_image2.png 1024w, /images/1440_image2.png 1440w, /images/1600_image2.png 1600w, /images/1920_image2.png 1920w, /images/image2.png 2160w, /images/image2.png 2700w" src="/images/image2.png" />
-			<img alt="You guessed it, more rocks" srcset="/images/480_image3.png 480w, /images/960_image3.png 960w, /images/1024_image3.png 1024w, /images/1440_image3.png 1440w, /images/1600_image3.png 1600w, /images/1920_image3.png 1920w, /images/image3.png 2160w, /images/image3.png 2700w" src="/images/image3.png" />
-		</div>
-		<div class="details">
-			Random Studio<br />
-			Opening Drinks<br />
-			<span>
-				Gillis van <wbr />Ledenberchstraat 112
-			</span><br />
-			1052VK Amsterdam<br />
-			<br />
-			Friday 22 April 2022<br />
-			18:00 - 00:00
-		</div>
-		<form id="form">
-			<label>Name</label><input id="name" placeholder="Your name" type="text" />
-			<label>Email</label><input id="email" placeholder="your@email.nl" type="email" />
-		</form>
-		<button class="submit is-disabled" type="submit" form="form" value="Submit">Submit RSVP</button>
 
-		<script type="text/javascript" src="submit.js"></script>
-		<script type="text/javascript" src="image.js"></script>
-	</body>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Random Studio Evolution Party</title>
+	<link rel="stylesheet" href="style.css">
+
+	<meta content="Random Studio" property="og:site_name" />
+	<meta content="Random Studio Evolution Party" name="twitter:title" />
+	<meta content="Random Studio Evolution Party" property="og:title" />
+
+	<meta content="Party invitation" property="og:description" />
+	<meta content="Party invitation" name="twitter:description" />
+
+	<meta content="website'" property="og:type" />
+	<meta content="en_US'" property="og:locale" />
+	<meta content="https://evolution.random.studio" property="og:url" />
+
+	<meta content="/ogimage.png" property="og:image" />
+	<meta content="/ogimage.png" name="twitter:image" />
+
+	<meta content="800" property="og:image:width" />
+	<meta content="800" property="og:image:height" />
+
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="@random.studio" name="twitter:site" />
+
+	<meta content="/favicons/browserconfig.xml" name="msapplication-config" />
+
+	<link href="/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+
+	<link href="/favicons/apple-touch-icon.png" />
+
+	<link href="/favicons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
+
+	<link href="/favicons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+
+	<link href="/favicons/android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png" />
+
+	<link href="/favicons/site.webmanifest" rel="manifest" />
+
+	<link color="#0000ff" href="/favicons/safari-pinned-tab.svg" rel="mask-icon" />
+
+	<link href="/favicons/manifest.json" rel="manifest" />
+
+	<link href="/favicons/favicon.ico" rel="icon" />
+
+	<script data-domain="random.studio" defer src="https://plausible.io/js/plausible.outbound-links.js" />
+</head>
+
+<body>
+	<script type="text/javascript">
+		document.documentElement.style.opacity = 0;
+		document.documentElement.style.backgroundColor = 'black';
+	</script>
+	<div class="image">
+		<img alt="An image of rocks"
+			srcset="/images/480_image.png 480w, /images/960_image.png 960w, /images/1024_image.png 1024w, /images/1440_image.png 1440w, /images/1600_image.png 1600w, /images/1920_image.png 1920w, /images/image.png 2160w, /images/image.png 2700w"
+			src="/images/image.png" class="is-active" />
+		<img alt="Another image of rocks"
+			srcset="/images/480_image2.png 480w, /images/960_image2.png 960w, /images/1024_image2.png 1024w, /images/1440_image2.png 1440w, /images/1600_image2.png 1600w, /images/1920_image2.png 1920w, /images/image2.png 2160w, /images/image2.png 2700w"
+			src="/images/image2.png" />
+		<img alt="You guessed it, more rocks"
+			srcset="/images/480_image3.png 480w, /images/960_image3.png 960w, /images/1024_image3.png 1024w, /images/1440_image3.png 1440w, /images/1600_image3.png 1600w, /images/1920_image3.png 1920w, /images/image3.png 2160w, /images/image3.png 2700w"
+			src="/images/image3.png" />
+	</div>
+	<div class="details">
+		Random Studio<br />
+		Opening Drinks<br />
+		<span>
+			Gillis van <wbr />Ledenberchstraat 112
+		</span><br />
+		1052VK Amsterdam<br />
+		<br />
+		Friday 22 April 2022<br />
+		18:00 - 00:00
+	</div>
+	<form id="form">
+		<label>Name</label><input id="name" placeholder="Your name" type="text" />
+		<label>Email</label><input id="email" placeholder="your@email.nl" type="email" />
+	</form>
+	<button class="submit is-disabled" type="submit" form="form" value="Submit">Submit RSVP</button>
+
+	<script type="text/javascript" src="submit.js"></script>
+	<script type="text/javascript" src="image.js"></script>
+</body>
+
 </html>
