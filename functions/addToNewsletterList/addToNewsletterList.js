@@ -82,7 +82,7 @@ module.exports.handler = async (event, context, callback) => {
 		console.log(`Mailchimp body: ${JSON.stringify(bodyObj)}`);
 		console.log(`Status Code: ${response.statusCode}`);
 
-		if (response.statusCode > 299) {
+		if (!response.ok) {
 			console.log('Error from mailchimp', bodyObj.detail);
 			respond(bodyObj.detail);
 			return;
