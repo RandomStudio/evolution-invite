@@ -14,10 +14,36 @@
 			Friday 22 April 2022<br />
 			19:00 — 00:00
 		</div>
-		<form id="form">
-			<label>Name</label><input placeholder="Your name" type="text" />
-			<label>Email</label><input placeholder="your@email.nl" type="email" />
+		<form id="form" onsubmit="handleSubmit(event)">
+			<label>Name</label><input id="name" placeholder="Your name" type="text" />
+			<label>Email</label><input id="email" placeholder="your@email.nl" type="email" />
 		</form>
-		<button type="submit" form="form" value="Submit">Submit RSVP</button>
+		<button class="submit" onclick="handleSubmit(event)" type="submit" form="form" value="Submit">Submit RSVP</button>
+
+		<script type="text/javascript">
+			const submitEl = document.querySelector('.submit');
+			const handleSubmit = async event => {
+				submitEl.classList.add('disabled');
+				submitEl.classList.add('loading');
+				event.preventDefault();
+
+				try {
+					const email = document.querySelector('#email').value
+					const response = await fetch(
+						`https://deft-capybara-b966ac.netlify.app/.netlify/functions/addToNewsletterList?email=${email}`,
+					);
+
+					if (response.ok) {
+						submit.innerText = 'Submitted';
+					}
+					submitEl.classList.remove('loading');
+				} catch (responseError) {
+					console.error(responseError);
+					//setError('Failed to submit. Please check email and try again.');
+				}
+
+				return false;
+			};
+		</script>
 	</body>
 </html>
