@@ -69,6 +69,7 @@ button {
 	font-weight: inherit;
 	appearance: none;
 	border: none;
+	margin: 0;
 }
 
 button {
