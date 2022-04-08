@@ -17,17 +17,21 @@ const setErrorMessage = message => {
 const handleChange = () => {
 	if (!emailEl.value.includes('@') || nameEl.value.length < 3) {
 		submitEl.classList.add('is-disabled')
+		submitEl.disabled = true;
 		return;
 	}
 
 	submitEl.classList.remove('is-disabled')
+	submitEl.disabled = false;
 	submitEl.classList.remove('has-error')
 	submitEl.innerText = 'Submit RSVP'
 }
 
 const handleSubmit = async event => {
 	submitEl.classList.add('is-disabled');
+	submitEl.disabled = true;
 	submitEl.classList.add('is-loading');
+	submitEl.innerHTML = 'Submitting...';
 	event.preventDefault();
 
 	try {
@@ -36,7 +40,7 @@ const handleSubmit = async event => {
 			`https://deft-capybara-b966ac.netlify.app/.netlify/functions/addToNewsletterList?email=${email}`,
 		);
 
-		submitEl.classList.remove('loading');
+		submitEl.classList.remove('is-loading');
 
 		if (!response.ok) {
 			const json = await response.json();
@@ -44,7 +48,7 @@ const handleSubmit = async event => {
 			return;
 		}
 
-		submitEl.innerText = 'Submitted';
+		submitEl.innerText = 'See you there!';
 	} catch (responseError) {
 		setErrorMessage(responseError?.message ?? 'Server error');
 	}

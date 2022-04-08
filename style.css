@@ -14,6 +14,8 @@ html {
 body {
 	margin: 0;
 	padding: 0;
+	overscroll-behavior: none;
+	-webkit-overflow-scrolling: touch;
 	display: flex;
 	flex-direction: column;
 }
@@ -78,11 +80,17 @@ button {
 	order: 4;
 	min-height: 6rem;
 	color: black;
+	cursor: pointer;
 }
 
 button.is-disabled {
-	pointer-events: none;
+	cursor: not-allowed;
 	color: rgba(0, 0, 0, 0.4);
+}
+
+button.is-loading {
+	content: 'Loading';
+	cursor: progress;
 }
 
 button.has-error {
