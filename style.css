@@ -141,7 +141,7 @@ input::placeholder {
 		grid-template-columns: min-content auto;
 		column-gap: 1.5em;
 		row-gap: 1.3em;
-		padding: 1.5em 1em;
+		padding: 1.5em 1.5em;
 	}
 
 	input {
