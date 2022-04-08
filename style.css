@@ -113,14 +113,17 @@ input::placeholder {
 }
 
 @media (min-width: 760px) {
+	html {
+		font-size: 2vw;
+		line-height: 1.25;
+	}
+
 	body {
 		display: grid;
 		grid-template-columns: 33vw 66vw;
-		font-size: 32px;
 		grid-template-rows: 2fr 1fr 1fr;
 		height: 100vh;
 		overflow: hidden;
-		line-height: 1.25;
 	}
 
 	.image {
