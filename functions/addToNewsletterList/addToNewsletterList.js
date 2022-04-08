@@ -40,16 +40,27 @@ async function post(url, data, headers) {
 	})
 }
 
+
 module.exports.handler = async (event, context, callback) => {
+	const respond = (body, code = 201) => callback(null, {
+		statusCode: code,
+		headers: {
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Credentials': 'true',
+		},
+		body: JSON.stringify(body),
+	});
+
 	const { email } = event.queryStringParameters;
 	let errorMessage = null;
 
 	if (!email) {
 		errorMessage = 'No EMAIL supplied';
 		console.log(errorMessage);
-		callback(errorMessage);
+		respond(errorMessage, 400);
 	}
-	console.log(event.queryStringParameters)
+
 	const headers = {
 		Authorization: `Basic ${process.env.MAILCHIMP_API_KEY}`,
 	}
@@ -73,24 +84,16 @@ module.exports.handler = async (event, context, callback) => {
 
 		if (response.statusCode > 299) {
 			console.log('Error from mailchimp', bodyObj.detail);
-			callback(bodyObj.detail, null);
+			respond(bodyObj.detail);
 			return;
 		}
 
 		console.log('Added to list in Mailchimp subscriber list');
 
-		callback(null, {
-			statusCode: 201,
-			headers: {
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Credentials': 'true',
-			},
-			body: JSON.stringify({
-				status: 'saved email',
-			}),
+		respond({
+			status: 'saved email',
 		});
 	} catch (error) {
-		callback(error, null);
+		respond(error, 500);
 	}
 };
