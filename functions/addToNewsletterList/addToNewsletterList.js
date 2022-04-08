@@ -76,7 +76,7 @@ module.exports.handler = async (event, context, callback) => {
 
 	try {
 		const response = await post('https://us4.api.mailchimp.com/3.0/lists/be0f61cfc9/members', body, headers);
-
+		console.log('Concluded')
 		const bodyObj = JSON.parse(body);
 
 		console.log(`Mailchimp body: ${JSON.stringify(bodyObj)}`);
