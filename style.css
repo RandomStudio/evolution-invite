@@ -57,6 +57,7 @@ form {
 	flex-direction: column;
 	padding: 1.5em 1em 0;
 	order: 3;
+	align-content: space-around;
 }
 
 input,
