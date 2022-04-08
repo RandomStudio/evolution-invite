@@ -15,7 +15,7 @@ async function post(url, data, headers) {
 	return new Promise((resolve, reject) => {
 		const req = https.request(url, options, (res) => {
 			if (res.statusCode < 200 || res.statusCode > 299) {
-				return reject(new Error(`HTTP status code ${res.statusCode}`))
+				return reject({ code: res.statusCode, message: res.statusMessage })
 			}
 
 			const body = []
@@ -42,23 +42,24 @@ async function post(url, data, headers) {
 
 
 module.exports.handler = async (event, context, callback) => {
-	const respond = (body, code = 201) => callback(null, {
-		statusCode: code,
-		headers: {
-			'Content-Type': 'application/json',
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Credentials': 'true',
-		},
-		body: JSON.stringify(body),
-	});
+	const respond = (body, code = 201) => {
+		console.log('responding with', code, body)
+
+		callback(null, {
+			statusCode: code,
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': 'true',
+			},
+			body: JSON.stringify(body),
+		});
+	};
 
 	const { email } = event.queryStringParameters;
-	let errorMessage = null;
 
 	if (!email) {
-		errorMessage = 'No EMAIL supplied';
-		console.log(errorMessage);
-		respond(errorMessage, 400);
+		respond({ message: 'No EMAIL supplied' }, 400);
 	}
 
 	const headers = {
@@ -76,7 +77,7 @@ module.exports.handler = async (event, context, callback) => {
 
 	try {
 		const response = await post('https://us4.api.mailchimp.com/3.0/lists/be0f61cfc9/members', body, headers);
-		console.log('Concluded')
+
 		const bodyObj = JSON.parse(body);
 
 		console.log(`Mailchimp body: ${JSON.stringify(bodyObj)}`);
@@ -94,6 +95,7 @@ module.exports.handler = async (event, context, callback) => {
 			status: 'saved email',
 		});
 	} catch (error) {
-		respond(error, 500);
+		console.log(error)
+		respond({ message: error.message ?? 'Server error' }, error.code ?? 500);
 	}
 };
