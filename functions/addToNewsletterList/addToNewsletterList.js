@@ -7,6 +7,7 @@ async function post(url, data, headers) {
 		headers: {
 			'Content-Type': 'application/json',
 			'Content-Length': data.length,
+			...headers,
 		},
 		timeout: 1000, // in ms
 	}
