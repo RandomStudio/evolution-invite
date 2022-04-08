@@ -3,21 +3,26 @@
 	src: url('Random-Regular.woff2') format('woff2');
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
+html {
 	font-family: Random Regular;
-	font-size: 36px;
+	font-size: 32px;
 	font-weight: 400;
 	line-height: 1.12;
 	letter-spacing: 0.03em;
 }
 
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
 .image {
+	background-size: 0px 0px;
 	order: 2;
 	position: relative;
+	height: 100vw;
 }
 
 img {
@@ -27,17 +32,15 @@ img {
 	top: 0;
 	left: 0;
 	object-fit: cover;
-	mix-blend-mode: color-dodge;
 	opacity: 0;
-	-webkit-filter: brightness(.2) contrast(4);
-	filter: brightness(.2) contrast(4);
+	mix-blend-mode: hue;
+	filter: brightness(.2) contrast(3) blur(5px);
 	transition: all 3s linear;
 }
 
 img.is-active {
 	opacity: 1;
-	-webkit-filter: brightness(1) contrast(1);
-	filter: brightness(1) contrast(1);
+	filter: brightness(1) contrast(1) blur(0px);
 }
 
 .details {
@@ -50,11 +53,9 @@ img.is-active {
 form {
 	background-color: rgba(233, 100, 21, 1);
 	color: black;
-	display: grid;
-	grid-template-columns: min-content auto;
-	column-gap: 1.5em;
-	padding: 1.5em 1em;
-	row-gap: 1.3em;
+	display: flex;
+	flex-direction: column;
+	padding: 1.5em 1em 0;
 	order: 3;
 }
 
@@ -64,14 +65,16 @@ button {
 	font-size: inherit;
 	font: inherit;
 	line-height: inherit;
+	outline: none;
 	font-weight: inherit;
 	appearance: none;
+	border: none;
 }
 
 button {
 	background: rgba(255, 241, 227, 1);
 	order: 4;
-	border: none;
+	min-height: 4rem
 }
 
 button.is-disabled {
@@ -88,6 +91,7 @@ label {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
+	margin-bottom: 0.5em;
 }
 
 input {
@@ -95,7 +99,8 @@ input {
 	border-color: transparent;
 	border-bottom: 1px solid black;
 	color: black;
-	width: 100%;
+	margin-bottom: 1.5em;
+	padding: 0;
 }
 
 input::placeholder {
@@ -103,10 +108,10 @@ input::placeholder {
 	opacity: 1;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 760px) {
 	body {
 		display: grid;
-		grid-template-columns: 50vw 50vw;
+		grid-template-columns: 33vw 66vw;
 		grid-template-rows: 2fr 1fr 1fr;
 		height: 100vh;
 		overflow: hidden;
@@ -116,9 +121,41 @@ input::placeholder {
 	.image {
 		grid-column: 1 / 2;
 		grid-row: 1 / 4;
+		height: initial;
 	}
 
 	.details {
 		padding-left: 1.5em;
+	}
+
+	form {
+		display: grid;
+		grid-template-columns: min-content auto;
+		column-gap: 1.5em;
+		row-gap: 1.3em;
+		padding: 1.5em 1em;
+	}
+
+	input {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 940px) {
+	body {
+		grid-template-columns: 50vw 50vw;
+	}
+}
+
+
+@media not all and (min-resolution:.001dpcm) {
+	@media {
+		.image {
+			background-size: cover;
+		}
+
+		img {
+			mix-blend-mode: normal;
+		}
 	}
 }
