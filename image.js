@@ -5,22 +5,22 @@ const preload = () => Promise.all([...images].map(async ({ srcset }) => {
 	const image = new Image();
 	image.decoding = 'async'
 	image.srcset = srcset;
+	image.sizes = "(max-width: 939px) 100vw, 50vw"
 	await image.decode()
+
 	return;
 }));
 
 const runSlider = () => {
-	document.documentElement.style.transition = 'opacity 1s ease-in';
-	document.documentElement.style.opacity = 1;
-	document.documentElement.style.backgroundColor = 'transparent';
+	document.body.style.transition = 'opacity 1s ease-in';
+	document.body.style.opacity = 1;
 	let i = 1;
 	window.setInterval(() => {
 		images.forEach((image, index) => {
 			image.className = index === i ? 'is-active' : ''
 		})
-		parent.style.backgroundImage = `url(${images[i].src})`;
 		i = i < 2 ? i + 1 : 0;
-	}, 4000);
+	}, 6000);
 }
 
 preload().then(runSlider)

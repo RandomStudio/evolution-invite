@@ -7,6 +7,7 @@ html {
 	font-family: Random Regular;
 	font-size: 28px;
 	font-weight: 400;
+	background-color: black;
 	line-height: 1.2;
 	letter-spacing: 0.03em;
 }
@@ -35,14 +36,15 @@ img {
 	left: 0;
 	object-fit: cover;
 	opacity: 0;
-	mix-blend-mode: hue;
-	filter: brightness(.2) contrast(3) blur(5px);
-	transition: all 3s linear;
+	mix-blend-mode: exclusion;
+	filter: brightness(.2) contrast(3);
+	transition: all 3s linear 2s;
 }
 
 img.is-active {
 	opacity: 1;
-	filter: brightness(1) contrast(1) blur(0px);
+	filter: brightness(1) contrast(1);
+	transition-delay: 0s;
 }
 
 .details {
@@ -160,18 +162,5 @@ input::placeholder {
 @media (min-width: 940px) {
 	body {
 		grid-template-columns: 50vw 50vw;
-	}
-}
-
-
-@media not all and (min-resolution:.001dpcm) {
-	@media {
-		.image {
-			background-size: cover;
-		}
-
-		img {
-			mix-blend-mode: normal;
-		}
 	}
 }
