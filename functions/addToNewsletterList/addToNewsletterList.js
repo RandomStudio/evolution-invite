@@ -68,6 +68,7 @@ module.exports.handler = async (event, context, callback) => {
 
 	const data = {
 		email_address: email,
+		first_name: name,
 		status: 'subscribed',
 		merge_fields: {},
 	};
