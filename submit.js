@@ -38,7 +38,7 @@ const handleSubmit = async event => {
 		const email = document.querySelector('#email').value
 		const name = document.querySelector('#name').value
 		const response = await fetch(
-			`https://deft-capybara-b966ac.netlify.app/.netlify/functions/addToNewsletterList?email=${email}&name=${name}`,
+			`https://deft-capybara-b966ac.netlify.app/.netlify/functions/addToNewsletterList?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`,
 		);
 
 		submitEl.classList.remove('is-loading');

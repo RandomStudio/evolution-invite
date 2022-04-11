@@ -67,10 +67,10 @@ module.exports.handler = async (event, context, callback) => {
 	}
 
 	const data = {
-		email_address: email,
+		email_address: decodeURIComponent(email),
 		status: 'subscribed',
 		merge_fields: {
-			NAME: name
+			NAME: decodeURIComponent(name)
 		},
 	};
 
