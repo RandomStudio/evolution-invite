@@ -56,7 +56,7 @@ module.exports.handler = async (event, context, callback) => {
 		});
 	};
 
-	const { email } = event.queryStringParameters;
+	const { email, name } = event.queryStringParameters;
 
 	if (!email) {
 		respond({ message: 'No EMAIL supplied' }, 400);
