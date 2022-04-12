@@ -60,5 +60,5 @@ const handleSubmit = async event => {
 formEl.addEventListener('submit', handleSubmit)
 submitEl.addEventListener('click', handleSubmit)
 
-nameEl.addEventListener('change', handleChange)
-emailEl.addEventListener('change', handleChange)
+nameEl.addEventListener('input', handleChange)
+emailEl.addEventListener('input', handleChange)
